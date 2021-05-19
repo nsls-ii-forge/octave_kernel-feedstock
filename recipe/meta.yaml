@@ -1,0 +1,37 @@
+{% set name = "octave_kernel" %}
+{% set version = "0.32.0" %}
+{% set sha256 = "2eeab98a51ce8eddb182d90e5324f1c0bf49b9b42bce6bb996e4afe198ebcb35" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  noarch: python
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - ipykernel
+    - jupyter_client >=4.3.0
+    - metakernel >=0.24.0
+
+test:
+  imports:
+    - octave_kernel
+
+about:
+  home: https://github.com/Calysto/octave_kernel
+  license_family: BSD
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+  summary: A Jupyter kernel for Octave.
